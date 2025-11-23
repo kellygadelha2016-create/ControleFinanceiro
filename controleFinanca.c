@@ -5,18 +5,15 @@
 */
 
 #include <stdio.h>
+#include "gastos.h"
 //struct para expecificar cada gasto
-struct Gasto
-{
-    double valor;
-};
 
 
 int main(){
 
     //Variaveis utilizadas
     double novoSalario, salario, lerGastos=0;
-    struct Gasto gastoAtual;
+    struct Gastos gastoAtual;
     int cont=1, stop;
         
     printf("----------------------\n");
@@ -32,20 +29,16 @@ int main(){
     printf("-------------------------------------\n");
 
     //laço de repetição while, permite que o usuario insira varios valores de gastos enquanto o gasto for menor que salario
-    while(lerGastos<salario){
+    while(lerGastos < salario){
 
         printf("Gasto numero %d: ", cont);
         scanf("%lf", &gastoAtual.valor);
+
         lerGastos+=gastoAtual.valor;
         cont++;
-        if(gastoAtual.valor < salario){
-            printf("Se deseja continuar digite 1, se deseja parar digite 0: ");
-            scanf("%d", &stop);
-        } else{
-            break;
-        }
-        if (stop==0)
-        {
+
+        stop = continuar();
+        if (stop == 0){
             break;
         }
 
@@ -60,18 +53,19 @@ int main(){
         printf("Entre agora com possiveis gastos ou gastos referente a Lazer\n");
         printf("---------------------------------------------------------------\n");
 
-        while(gastoAtual.valor <salario && stop!=0){
+        while(lerGastos <salario && stop!=0){
 
             printf("Gasto numero %d: ", cont);
-            scanf("%lf", &gastoAtual.valor );
+            lerGasto(&gastoAtual);
             cont++;
+            
+            lerGastos += gastoAtual.valor;
+            
             if(lerGastos<salario){
-                printf("Se deseja continuar digite 1, se deseja parar digite 0: ");
-                scanf("%d", &stop);                
+                stop = continuar();
             } else{
                 break;
             }
-            lerGastos+=gastoAtual.valor;
         }
     }
 
