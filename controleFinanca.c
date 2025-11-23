@@ -1,17 +1,22 @@
 /*
     Projeto: Controle financeiro
-    Autor: Kelly Gadelha Brazao
-    Data: 18/10/2025
-
+    Autor: Kelly Gadelha Brazao e Ewerton Vinicius
     Projeto para ALGORITMOS E PROGRAMAÇÃO ESTRUTURADA
 */
 
 #include <stdio.h>
+//struct para expecificar cada gasto
+struct Gasto
+{
+    double valor;
+};
+
 
 int main(){
 
     //Variaveis utilizadas
-    double novoSalario, salario, gastos=0, lerGastos=0;
+    double novoSalario, salario, lerGastos=0;
+    struct Gasto gastoAtual;
     int cont=1, stop;
         
     printf("----------------------\n");
@@ -30,10 +35,10 @@ int main(){
     while(lerGastos<salario){
 
         printf("Gasto numero %d: ", cont);
-        scanf("%lf", &gastos);
-        lerGastos+=gastos;
+        scanf("%lf", &gastoAtual.valor);
+        lerGastos+=gastoAtual.valor;
         cont++;
-        if(gastos<salario){
+        if(gastoAtual.valor < salario){
             printf("Se deseja continuar digite 1, se deseja parar digite 0: ");
             scanf("%d", &stop);
         } else{
@@ -55,10 +60,10 @@ int main(){
         printf("Entre agora com possiveis gastos ou gastos referente a Lazer\n");
         printf("---------------------------------------------------------------\n");
 
-        while(gastos<salario && stop!=0){
+        while(gastoAtual.valor <salario && stop!=0){
 
             printf("Gasto numero %d: ", cont);
-            scanf("%lf", &gastos);
+            scanf("%lf", &gastoAtual.valor );
             cont++;
             if(lerGastos<salario){
                 printf("Se deseja continuar digite 1, se deseja parar digite 0: ");
@@ -66,8 +71,7 @@ int main(){
             } else{
                 break;
             }
-            lerGastos+=gastos;
-
+            lerGastos+=gastoAtual.valor;
         }
     }
 
@@ -75,7 +79,7 @@ int main(){
     novoSalario=salario-lerGastos; 
 
     //Saida de informações
-    if (salario<=0){
+    if (salario <= 0){
         printf("Seu salario não e suficiente para o mes\n");
         printf("Seu saldo: %.2f", novoSalario);
     } else{
@@ -84,5 +88,4 @@ int main(){
     }
 
     return 0;
-
 }
